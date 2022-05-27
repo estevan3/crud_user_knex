@@ -23,4 +23,4 @@ cd crud_user_knex
 
 ## Documentação
 
-Com a aplicação em execução clique aqui acessar a documentação: [localhost:3000/docs](http://localhost:3000/docs)
+Com a aplicação em execução, clique aqui para acessar a documentação: [localhost:3000/docs](http://localhost:3000/docs)
