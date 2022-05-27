@@ -1,4 +1,5 @@
 const createUserService = require("../services/user.service");
+const bcrypt = require("bcryptjs");
 
 const userService = createUserService();
 
@@ -21,7 +22,13 @@ const createUserController = () => {
 
   const create = async (request, response) => {
     try {
-      const newUser = await userService.insert(request.body);
+      const { password, ...user } = request.body;
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      user.password = hashedPassword;
+
+      const newUser = await userService.insert(user);
 
       return response.status(201).json(newUser);
     } catch (error) {
@@ -34,8 +41,13 @@ const createUserController = () => {
   };
 
   const update = async (request, response) => {
-    const user = request.body;
     const userId = request.params.userId;
+
+    const { password, ...user } = request.body;
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    user.password = hashedPassword;
 
     const updatedUser = await userService.update(userId, user);
 
