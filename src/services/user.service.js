@@ -4,23 +4,23 @@ const database = connection();
 
 const createUserService = (tableName = "users") => {
   const list = async () => {
-    return database(tableName).orderBy("id", "asc");
+    return database(tableName).select("id", "email").orderBy("id", "asc");
   };
 
   const get = async (userId) => {
-    const user = await database(tableName).select("*").where("id", userId).first();
+    const user = await database(tableName).select("id", "email").where("id", userId).first();
 
     return user;
   };
 
   const insert = async (user, tableName = "users") => {
-    const newUser = database(tableName).insert(user).returning("*");
+    const newUser = await database(tableName).insert(user).returning(["id", "email"]);
 
-    return newUser;
+    return newUser[0];
   };
 
   const update = async (userId, user, tableName = "users") => {
-    const updatedUser = await database(tableName).update(user).where("id", userId).returning("*");
+    const updatedUser = await database(tableName).update(user).where("id", userId).returning(["id", "email"]);
 
     return updatedUser[0];
   };

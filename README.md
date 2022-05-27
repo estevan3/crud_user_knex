@@ -19,4 +19,6 @@ sudo docker-compose up
 
 A aplicação executará na porta 3000.
 
-Com a aplicação em execução clique aqui para utiliza-la: [localhost:3000](http://localhost:3000)
+## Documentação
+
+Com a aplicação em execução clique aqui acessar a documentação: [localhost:3000](http://localhost:3000/docs)

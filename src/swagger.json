@@ -1,0 +1,209 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Common User App",
+    "description": "This is a sample server for a pet store.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1",
+      "description": "test"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "description": "List all users",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/UserInDb"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Create a user",
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "description": "User to create.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "User already exists!"
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/UserInDb"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete all users",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "204": {
+            "description": "OK - No Content"
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "description": "get user by id",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of user to fetch",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/UserInDb"
+              }
+            }
+          },
+          "400": {
+            "description": "User not found"
+          }
+        }
+      },
+      "put": {
+        "description": "update user by id",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of user to fetch",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "User to update.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "User not found"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/UserInDb"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "delete user by id",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of user to fetch",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "User not found"
+          },
+          "204": {
+            "description": "OK - No Content"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "UserInDb": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

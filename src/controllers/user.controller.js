@@ -1,4 +1,3 @@
-const { response } = require("express");
 const createUserService = require("../services/user.service");
 
 const userService = createUserService();
@@ -49,6 +48,8 @@ const createUserController = () => {
 
   const deleteAll = async (request, response) => {
     const deletedUsers = await userService.deleteAll();
+
+    console.log("> deletedUsers", deletedUsers);
 
     return response.status(204).send();
   };

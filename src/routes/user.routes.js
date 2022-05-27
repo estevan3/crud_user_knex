@@ -10,7 +10,7 @@ const userRouters = (app) => {
   router.get("", userController.getAll);
   router.get("/:userId", userController.get);
   router.post("", validator(userModel), userController.create);
-  router.put("/:userId", userController.update);
+  router.put("/:userId", validator(userModel), userController.update);
   router.delete("", userController.deleteAll);
   router.delete("/:userId", userController.deleteOne);
 
